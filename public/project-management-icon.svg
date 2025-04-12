@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- 背景圆形 -->
+  <circle cx="256" cy="256" r="240" fill="#3498db" />
+  
+  <!-- 项目管理图标元素 -->
+  <rect x="136" y="176" width="240" height="160" rx="8" fill="white" />
+  
+  <!-- 任务列表 -->
+  <rect x="156" y="196" width="200" height="20" rx="4" fill="#e0e0e0" />
+  <rect x="156" y="226" width="200" height="20" rx="4" fill="#e0e0e0" />
+  <rect x="156" y="256" width="200" height="20" rx="4" fill="#e0e0e0" />
+  <rect x="156" y="286" width="200" height="20" rx="4" fill="#e0e0e0" />
+  
+  <!-- 完成标记 -->
+  <circle cx="166" cy="206" r="6" fill="#2ecc71" />
+  <circle cx="166" cy="236" r="6" fill="#2ecc71" />
+  <circle cx="166" cy="266" r="6" fill="#f39c12" />
+  <circle cx="166" cy="296" r="6" fill="#e74c3c" />
+  
+  <!-- 进度条 -->
+  <rect x="186" y="316" width="140" height="10" rx="5" fill="#e0e0e0" />
+  <rect x="186" y="316" width="84" height="10" rx="5" fill="#2ecc71" />
+</svg>
