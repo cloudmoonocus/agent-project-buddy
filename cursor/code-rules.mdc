@@ -1,0 +1,12 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+### 代码要求
+> 安装组件使用：`npx shadcn@latest add xxxxxx`。例如：`npx shadcn@latest add button`
+1. 基于我的任务要求，比如可以发现很多工作项的表格可以共用一个，其余需要你自己思考，因此你生成的组件代码要具有复用性。
+2. 尽可能使用 shadcn 自带的组件，不要自己去创造组件。
+3. 项目内具有复用性的组件要单独抽离出来，比如一些枚举类型表单项，比如优先级徽章啥的，我只是举个例子可能不对，你自己思考一下。
+4. 接口请求要直接使用 `src/api/index.ts` 导出的方法，使用接口的时候参数要读取 `src/types/supabase.ts` 去使用。
+5. 如果你发现现有接口的定义不满足软件项目管理平台的逻辑，可以调用 Supabase 的 MCP tools 去修改数据库或 Table，但是非必要不使用。

@@ -1,6 +1,5 @@
 import type { Database } from '@/types/supabase.ts'
 import { createClient } from '@supabase/supabase-js'
-import { message } from 'antd'
 
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL
 const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY
@@ -13,7 +12,6 @@ export function request(func: Function) {
   }
   catch (error: any) {
     console.error('Error in Supabase request:', error.message)
-    message.error(error.message || '请求失败')
   }
 }
 
