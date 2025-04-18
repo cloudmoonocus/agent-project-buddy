@@ -1,4 +1,16 @@
-import type { TablesInsert } from '../../types/supabase'
+import type { TablesInsert } from '@/types/supabase'
+import { projectsApi } from '@/api'
+import useUserStore from '@/store/userStore'
+import {
+  CardGrid,
+  EnhancedCard,
+  FlexContainer,
+  PageContainer,
+  PageTitle,
+  PrimaryButton,
+  SectionTitle,
+} from '@/styles/StyledComponents'
+import { theme } from '@/styles/theme'
 import {
   BugOutlined,
   CheckSquareOutlined,
@@ -26,18 +38,6 @@ import {
 } from 'antd'
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { projectsApi } from '../../api'
-import useUserStore from '../../store/userStore'
-import {
-  CardGrid,
-  EnhancedCard,
-  FlexContainer,
-  PageContainer,
-  PageTitle,
-  PrimaryButton,
-  SectionTitle,
-} from '../../styles/StyledComponents'
-import { theme } from '../../styles/theme'
 
 const { Text } = Typography
 const { TextArea } = Input

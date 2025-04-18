@@ -1,9 +1,9 @@
+import { authAPI } from '@/api/auth'
 import { LockOutlined, MailOutlined } from '@ant-design/icons'
 import { Button, Card, Form, Input, message, Tabs, Typography } from 'antd'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { authAPI } from '../../api/auth'
-import '../../styles/reset.css'
+import '@/styles/reset.css'
 
 const { Title } = Typography
 

@@ -1,10 +1,10 @@
-import type { Tables } from '../../types/supabase'
+import type { Tables } from '@/types/supabase'
+import { iterationsApi } from '@/api'
 import { BugOutlined, CheckSquareOutlined, FileTextOutlined } from '@ant-design/icons'
 import styled from '@emotion/styled'
 import { useRequest } from 'ahooks'
 import { message, Modal, Table, Tabs, Tag, Typography } from 'antd'
 import React, { useEffect, useState } from 'react'
-import { iterationsApi } from '../../api'
 
 const { Text } = Typography
 

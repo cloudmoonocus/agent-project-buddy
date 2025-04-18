@@ -1,4 +1,4 @@
-import { wrapApiWithRequest } from '../utils/apiWrapper'
+import { wrapApiWithRequest } from '@/utils/apiWrapper'
 import * as iterationsApiOriginal from './iterations'
 import * as projectsApiOriginal from './projects'
 import * as defectsApiOriginal from './workitem/defects.ts'

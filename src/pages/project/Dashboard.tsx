@@ -1,11 +1,11 @@
-import type { Tables } from '../../types/supabase'
+import type { Tables } from '@/types/supabase'
+import { defectsApi, iterationsApi, projectsApi, requirementsApi, tasksApi } from '@/api'
 import { BugOutlined, CheckSquareOutlined, FileTextOutlined, SyncOutlined } from '@ant-design/icons'
 import styled from '@emotion/styled'
 import { useRequest } from 'ahooks'
 import { Card, Col, Progress, Row, Statistic, Table, Tag, Typography } from 'antd'
 import React, { useMemo } from 'react'
 import { useParams } from 'react-router-dom'
-import { defectsApi, iterationsApi, projectsApi, requirementsApi, tasksApi } from '../../api'
 
 const { Title } = Typography
 

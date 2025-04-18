@@ -1,13 +1,13 @@
-import type { Tables, TablesInsert } from '../../types/supabase'
+import type { Tables, TablesInsert } from '@/types/supabase'
+import { defectsApi, iterationsApi, requirementsApi, tasksApi } from '@/api'
+import { PlanIterationModal } from '@/components/iteration/PlanIterationModal'
+import useUserStore from '@/store/userStore'
 import { LockOutlined, PlusOutlined, ScheduleOutlined, UnlockOutlined } from '@ant-design/icons'
 import styled from '@emotion/styled'
 import { useRequest } from 'ahooks'
 import { Button, Card, Col, Form, Input, message, Modal, Popconfirm, Progress, Row, Space, Table, Tag, Typography } from 'antd'
 import React, { useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { defectsApi, iterationsApi, requirementsApi, tasksApi } from '../../api'
-import { PlanIterationModal } from '../../components/iteration/PlanIterationModal'
-import useUserStore from '../../store/userStore'
 
 const { Title } = Typography
 

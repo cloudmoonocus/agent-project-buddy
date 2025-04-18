@@ -1,9 +1,9 @@
-import type { Tables } from '../../types/supabase'
+import type { Tables } from '@/types/supabase'
+import { theme } from '@/styles/theme'
 import { BugOutlined, CheckSquareOutlined, FileTextOutlined } from '@ant-design/icons'
 import styled from '@emotion/styled'
 import { Avatar, Descriptions, Divider, Drawer, Space, Tag, Typography } from 'antd'
 import React from 'react'
-import { theme } from '../../styles/theme'
 
 const { Title, Paragraph } = Typography
 

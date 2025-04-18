@@ -1,13 +1,13 @@
-import type { Tables, TablesInsert } from '../../types/supabase'
+import type { Tables, TablesInsert } from '@/types/supabase'
+import { iterationsApi, requirementsApi } from '@/api'
+import { WorkItemDetailDrawer } from '@/components/workitem/WorkItemDetailDrawer'
+import useUserStore from '@/store/userStore'
 import { EyeOutlined, PlusOutlined } from '@ant-design/icons'
 import styled from '@emotion/styled'
 import { useRequest } from 'ahooks'
 import { Button, Form, Input, message, Modal, Select, Space, Table, Tag, Typography } from 'antd'
 import React, { useEffect, useState } from 'react'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
-import { iterationsApi, requirementsApi } from '../../api'
-import { WorkItemDetailDrawer } from '../../components/workitem/WorkItemDetailDrawer'
-import useUserStore from '../../store/userStore'
 
 const { Title } = Typography
 const { TextArea } = Input

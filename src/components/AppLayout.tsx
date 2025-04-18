@@ -1,13 +1,13 @@
 import type { ItemType } from 'antd/es/menu/interface'
+import { authAPI } from '@/api/auth'
+import useUserStore from '@/store/userStore'
+import { FlexContainer } from '@/styles/StyledComponents'
+import { theme } from '@/styles/theme'
 import { HomeOutlined, LogoutOutlined, ProjectOutlined, SettingOutlined, UserOutlined } from '@ant-design/icons'
 import styled from '@emotion/styled'
 import { Layout as AntdLayout, Avatar, Badge, Button, Dropdown, Menu, Tooltip, Typography } from 'antd'
 import React, { useCallback, useEffect, useState } from 'react'
 import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom'
-import { authAPI } from '../api/auth'
-import useUserStore from '../store/userStore'
-import { FlexContainer } from '../styles/StyledComponents'
-import { theme } from '../styles/theme'
 
 const { Header, Content } = AntdLayout
 

@@ -1,5 +1,5 @@
-import type { Tables, TablesInsert, TablesUpdate } from '../../types/supabase.ts'
-import supabase from '../../utils/supabaseClient.ts'
+import type { Tables, TablesInsert, TablesUpdate } from '@/types/supabase.ts'
+import supabase from '@/utils/supabaseClient.ts'
 
 // 获取所有缺陷
 export async function getAllDefects() {
