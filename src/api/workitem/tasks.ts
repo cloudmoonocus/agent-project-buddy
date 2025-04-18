@@ -101,3 +101,17 @@ export async function getTasksByStatus(status: Tables<'tasks'>['status']) {
 
   return data
 }
+
+// 获取迭代中的所有任务
+export async function getTasksByIterationId(iterationId: number) {
+  const { data, error } = await supabase
+    .from('tasks')
+    .select('*')
+    .eq('iteration_id', iterationId)
+
+  if (error) {
+    throw error
+  }
+
+  return data
+}

@@ -101,3 +101,17 @@ export async function getTasksByRequirementId(requirementId: number) {
 
   return data
 }
+
+// 获取迭代的所有需求
+export async function getRequirementsByIterationId(iterationId: number) {
+  const { data, error } = await supabase
+    .from('requirements')
+    .select('*')
+    .eq('iteration_id', iterationId)
+
+  if (error) {
+    throw error
+  }
+
+  return data
+}

@@ -2,9 +2,10 @@ import type { ItemType } from 'antd/es/menu/interface'
 import { HomeOutlined, LogoutOutlined, ProjectOutlined, SettingOutlined, UserOutlined } from '@ant-design/icons'
 import styled from '@emotion/styled'
 import { Layout as AntdLayout, Avatar, Badge, Button, Dropdown, Menu, Tooltip, Typography } from 'antd'
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom'
 import { authAPI } from '../api/auth'
+import useUserStore from '../store/userStore'
 import { FlexContainer } from '../styles/StyledComponents'
 import { theme } from '../styles/theme'
 
@@ -93,16 +94,20 @@ export const AppLayout: React.FC = () => {
   const navigate = useNavigate()
   const [userName, setUserName] = useState<string>('')
   const [userInitial, setUserInitial] = useState<string>('')
+  const { setUserInfo } = useUserStore()
 
-  const fetchUserInfo = async () => {
-    const user = await authAPI.getCurrentUser()
-    setUserName(user?.email || '用户')
-    setUserInitial(user?.email?.charAt(0).toUpperCase() || 'U')
-  }
+  const fetchUserInfo = useCallback(async () => {
+    if (setUserInfo) {
+      const user = await authAPI.getCurrentUser()
+      setUserName(user?.email || '用户')
+      setUserInitial(user?.email?.charAt(0).toUpperCase() || 'U')
+      setUserInfo(user)
+    }
+  }, [setUserInfo])
 
   useEffect(() => {
     fetchUserInfo()
-  }, [])
+  }, [fetchUserInfo])
 
   const handleLogout = async () => {
     try {

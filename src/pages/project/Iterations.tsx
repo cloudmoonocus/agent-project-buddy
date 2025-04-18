@@ -1,11 +1,13 @@
 import type { Tables, TablesInsert } from '../../types/supabase'
-import { PlusOutlined } from '@ant-design/icons'
+import { LockOutlined, PlusOutlined, ScheduleOutlined, UnlockOutlined } from '@ant-design/icons'
 import styled from '@emotion/styled'
 import { useRequest } from 'ahooks'
-import { Button, Card, Col, Form, Input, message, Modal, Progress, Row, Space, Table, Tag, Typography } from 'antd'
+import { Button, Card, Col, Form, Input, message, Modal, Popconfirm, Progress, Row, Space, Table, Tag, Typography } from 'antd'
 import React, { useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { defectsApi, iterationsApi, requirementsApi, tasksApi } from '../../api'
+import { PlanIterationModal } from '../../components/iteration/PlanIterationModal'
+import useUserStore from '../../store/userStore'
 
 const { Title } = Typography
 
@@ -58,11 +60,24 @@ const InfoItem = styled.div`
   }
 `
 
+// 表示已锁定的标签样式
+const LockedTag = styled(Tag)`
+  display: inline-flex;
+  align-items: center;
+
+  .anticon {
+    margin-right: 4px;
+  }
+`
+
 export const Iterations: React.FC = () => {
   const { projectId } = useParams<{ projectId: string }>()
   const [isModalVisible, setIsModalVisible] = useState(false)
+  const [isPlanModalVisible, setIsPlanModalVisible] = useState(false)
   const [editingIteration, setEditingIteration] = useState<Tables<'iterations'> | null>(null)
+  const [selectedIteration, setSelectedIteration] = useState<Tables<'iterations'> | null>(null)
   const [form] = Form.useForm()
+  const { userInfo } = useUserStore()
 
   // 获取迭代列表
   const { data: iterations, loading, refresh } = useRequest(
@@ -103,6 +118,36 @@ export const Iterations: React.FC = () => {
       },
       onError: (error) => {
         message.error(`更新失败: ${error.message}`)
+      },
+    },
+  )
+
+  // 锁定迭代
+  const { run: lockIteration } = useRequest(
+    (id: number) => iterationsApi.lockIteration(id),
+    {
+      manual: true,
+      onSuccess: () => {
+        message.success('迭代锁定成功')
+        refresh()
+      },
+      onError: (error) => {
+        message.error(`锁定失败: ${error.message}`)
+      },
+    },
+  )
+
+  // 解锁迭代
+  const { run: unlockIteration } = useRequest(
+    (id: number) => iterationsApi.unlockIteration(id),
+    {
+      manual: true,
+      onSuccess: () => {
+        message.success('迭代解锁成功')
+        refresh()
+      },
+      onError: (error) => {
+        message.error(`解锁失败: ${error.message}`)
       },
     },
   )
@@ -191,17 +236,42 @@ export const Iterations: React.FC = () => {
   const handleSubmit = () => {
     form.validateFields().then((values) => {
       if (editingIteration) {
+        // 检查迭代是否锁定
+        if (editingIteration.is_locked) {
+          message.error('迭代已锁定，无法编辑')
+          return
+        }
         updateIteration(editingIteration.id, values)
       }
       else {
         createIteration({
           ...values,
           project_id: Number(projectId),
-          creator_id: null, // 这里应该使用当前登录用户的ID
+          creator_id: userInfo?.id || null,
           created_at: new Date().toISOString(),
+          is_locked: false, // 默认未锁定
         })
       }
     })
+  }
+
+  const handlePlanIteration = (iteration: Tables<'iterations'>) => {
+    // 检查迭代是否锁定
+    if (iteration.is_locked) {
+      message.error('迭代已锁定，无法规划')
+      return
+    }
+    setSelectedIteration(iteration)
+    setIsPlanModalVisible(true)
+  }
+
+  const handleLockIteration = (iteration: Tables<'iterations'>) => {
+    if (iteration.is_locked) {
+      unlockIteration(iteration.id)
+    }
+    else {
+      lockIteration(iteration.id)
+    }
   }
 
   // 获取迭代状态
@@ -266,10 +336,20 @@ export const Iterations: React.FC = () => {
     {
       title: '状态',
       key: 'status',
-      width: 100,
+      width: 140,
       render: (_: any, record: Tables<'iterations'>) => {
         const status = getIterationStatus(record)
-        return <Tag color={status.color}>{status.text}</Tag>
+        return (
+          <Space>
+            <Tag color={status.color}>{status.text}</Tag>
+            {record.is_locked && (
+              <LockedTag color="red">
+                <LockOutlined />
+                已锁定
+              </LockedTag>
+            )}
+          </Space>
+        )
       },
     },
     {
@@ -291,12 +371,41 @@ export const Iterations: React.FC = () => {
     {
       title: '操作',
       key: 'action',
-      width: 150,
+      width: 250,
       render: (_: any, record: Tables<'iterations'>) => (
         <Space>
-          <Button type="link" onClick={() => showModal(record)}>
+          <Button
+            type="link"
+            onClick={() => showModal(record)}
+            disabled={record.is_locked ?? false}
+          >
             编辑
           </Button>
+          <Button
+            type="link"
+            icon={<ScheduleOutlined />}
+            onClick={() => handlePlanIteration(record)}
+            disabled={record.is_locked ?? false}
+          >
+            规划
+          </Button>
+          <Popconfirm
+            title={record.is_locked ? '确定解锁此迭代？' : '确定锁定此迭代？'}
+            description={record.is_locked
+              ? '解锁后，将可以编辑迭代和工作项'
+              : '锁定后，将无法编辑迭代和添加工作项'}
+            onConfirm={() => handleLockIteration(record)}
+            okText="确定"
+            cancelText="取消"
+          >
+            <Button
+              type="link"
+              icon={record.is_locked ? <UnlockOutlined /> : <LockOutlined />}
+              danger={!record.is_locked}
+            >
+              {record.is_locked ? '解锁' : '锁定'}
+            </Button>
+          </Popconfirm>
         </Space>
       ),
     },
@@ -338,7 +447,15 @@ export const Iterations: React.FC = () => {
               <InfoItem>
                 <span className="label">状态</span>
                 <span className="value">
-                  <Tag color="blue">进行中</Tag>
+                  <Space>
+                    <Tag color="blue">进行中</Tag>
+                    {iterationStats.currentIteration.is_locked && (
+                      <LockedTag color="red">
+                        <LockOutlined />
+                        已锁定
+                      </LockedTag>
+                    )}
+                  </Space>
                 </span>
               </InfoItem>
             </Col>
@@ -408,6 +525,8 @@ export const Iterations: React.FC = () => {
         onOk={handleSubmit}
         confirmLoading={createLoading || updateLoading}
         width={500}
+        okText="确定"
+        cancelText="取消"
       >
         <Form
           form={form}
@@ -440,6 +559,15 @@ export const Iterations: React.FC = () => {
           </Form.Item>
         </Form>
       </Modal>
+
+      {/* 迭代规划模态框 */}
+      <PlanIterationModal
+        visible={isPlanModalVisible}
+        onClose={() => setIsPlanModalVisible(false)}
+        iteration={selectedIteration}
+        projectId={Number(projectId)}
+        onSuccess={refresh}
+      />
     </div>
   )
 }

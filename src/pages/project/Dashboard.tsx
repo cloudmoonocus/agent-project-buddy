@@ -10,18 +10,18 @@ import { defectsApi, iterationsApi, projectsApi, requirementsApi, tasksApi } fro
 const { Title } = Typography
 
 const StyledCard = styled(Card)`
-  height: 100%; 
+  height: 100%;
   border-radius: 8px;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
-  
+
   .ant-card-head {
     background-color: #fafafa;
   }
-  
+
   .ant-statistic-title {
     color: #8c8c8c;
   }
-  
+
   .ant-statistic-content {
     color: #262626;
   }
@@ -38,16 +38,16 @@ const StatusRow = styled.div`
   justify-content: space-between;
   align-items: center;
   margin-bottom: 8px;
-  
+
   .label {
     display: flex;
     align-items: center;
-    
+
     .anticon {
       margin-right: 8px;
     }
   }
-  
+
   .count {
     font-weight: 500;
   }

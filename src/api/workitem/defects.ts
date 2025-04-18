@@ -101,3 +101,17 @@ export async function getDefectsByStatus(status: Tables<'defects'>['status']) {
 
   return data
 }
+
+// 获取迭代中的所有缺陷
+export async function getDefectsByIterationId(iterationId: number) {
+  const { data, error } = await supabase
+    .from('defects')
+    .select('*')
+    .eq('iteration_id', iterationId)
+
+  if (error) {
+    throw error
+  }
+
+  return data
+}

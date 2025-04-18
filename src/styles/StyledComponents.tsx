@@ -92,7 +92,7 @@ export const FlexContainer = styled.div<{
   flex-direction: ${({ direction = 'row' }) => direction};
   justify-content: ${({ justify = 'flex-start' }) => justify};
   align-items: ${({ align = 'center' }) => align};
-  gap: ${({ theme, gap = '4' }: { theme: Theme, gap?: keyof Theme['spacing'] }) => theme.spacing[gap]};
+  gap: ${({ theme, gap = 4 }: { theme: Theme, gap?: number }) => theme.spacing[gap]};
 `
 
 // 悬停高亮

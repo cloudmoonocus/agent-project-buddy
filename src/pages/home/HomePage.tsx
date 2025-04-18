@@ -13,12 +13,9 @@ import styled from '@emotion/styled'
 import { useRequest } from 'ahooks'
 import {
   Badge,
-  Button,
   Card,
-  Empty,
   Form,
   Input,
-  List,
   message,
   Modal,
   Skeleton,
@@ -30,6 +27,7 @@ import {
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { projectsApi } from '../../api'
+import useUserStore from '../../store/userStore'
 import {
   CardGrid,
   EnhancedCard,
@@ -41,7 +39,7 @@ import {
 } from '../../styles/StyledComponents'
 import { theme } from '../../styles/theme'
 
-const { Title, Text } = Typography
+const { Text } = Typography
 const { TextArea } = Input
 
 // 项目卡片
@@ -196,6 +194,7 @@ export const HomePage: React.FC = () => {
   const navigate = useNavigate()
   const [isModalVisible, setIsModalVisible] = useState(false)
   const [form] = Form.useForm()
+  const { userInfo } = useUserStore()
 
   // 获取项目列表
   const { data: projects = [], loading, refresh } = useRequest(projectsApi.getAllProjects)
@@ -243,7 +242,7 @@ export const HomePage: React.FC = () => {
     form.validateFields().then((values) => {
       createProject({
         ...values,
-        creator_id: null, // 这里应该使用当前登录用户的ID
+        creator_id: userInfo?.id || null,
         created_at: new Date().toISOString(),
       })
     })
@@ -257,7 +256,7 @@ export const HomePage: React.FC = () => {
     { title: '未解决的缺陷', value: 5, icon: <BugOutlined /> },
   ]
 
-  const formatDate = (dateString?: string) => {
+  const formatDate = (dateString?: string | null) => {
     if (!dateString)
       return ''
     const date = new Date(dateString)
@@ -283,7 +282,7 @@ export const HomePage: React.FC = () => {
         {/* 统计信息卡片 */}
         <CardGrid style={{ marginBottom: theme.spacing[8] }}>
           {statsData.map((stat, index) => (
-            <StatCard key={index} bodyStyle={{ padding: theme.spacing[4] }}>
+            <StatCard key={index} styles={{ body: { padding: theme.spacing[4] } }}>
               <div className="stat-title">{stat.title}</div>
               <div className="stat-value">{stat.value}</div>
               <div className="stat-icon">{stat.icon}</div>
@@ -335,7 +334,7 @@ export const HomePage: React.FC = () => {
                         {project.description || '无项目描述'}
                       </Text>
 
-                      <FlexContainer gap="2" style={{ margin: `${theme.spacing[3]} 0` }}>
+                      <FlexContainer gap={2} style={{ margin: `${theme.spacing[3]} 0` }}>
                         <Badge status="processing" />
                         <Text type="secondary" style={{ fontSize: theme.typography.fontSize.xs }}>
                           <ClockCircleOutlined style={{ marginRight: theme.spacing[1] }} />

@@ -1,11 +1,13 @@
 import type { Tables, TablesInsert } from '../../types/supabase'
-import { PlusOutlined } from '@ant-design/icons'
+import { EyeOutlined, PlusOutlined } from '@ant-design/icons'
 import styled from '@emotion/styled'
 import { useRequest } from 'ahooks'
 import { Button, Form, Input, message, Modal, Select, Space, Table, Tag, Typography } from 'antd'
-import React, { useState } from 'react'
-import { useParams } from 'react-router-dom'
-import { requirementsApi } from '../../api'
+import React, { useEffect, useState } from 'react'
+import { useLocation, useNavigate, useParams } from 'react-router-dom'
+import { iterationsApi, requirementsApi } from '../../api'
+import { WorkItemDetailDrawer } from '../../components/workitem/WorkItemDetailDrawer'
+import useUserStore from '../../store/userStore'
 
 const { Title } = Typography
 const { TextArea } = Input
@@ -22,21 +24,55 @@ const StyledTable = styled(Table)`
   .ant-table-thead > tr > th {
     background-color: #fafafa;
   }
-  
+
   .ant-table-tbody > tr:hover > td {
     background-color: #f5f5f5;
+  }
+
+  .ant-table-tbody > tr {
+    cursor: pointer;
   }
 `
 
 export const Requirements: React.FC = () => {
   const { projectId } = useParams<{ projectId: string }>()
+  const navigate = useNavigate()
+  const location = useLocation()
   const [isModalVisible, setIsModalVisible] = useState(false)
+  const [isDetailVisible, setIsDetailVisible] = useState(false)
   const [editingRequirement, setEditingRequirement] = useState<Tables<'requirements'> | null>(null)
+  const [selectedRequirement, setSelectedRequirement] = useState<Tables<'requirements'> | null>(null)
   const [form] = Form.useForm()
+  const { userInfo } = useUserStore()
+
+  // 检查 URL 参数中是否有需求 ID
+  useEffect(() => {
+    const searchParams = new URLSearchParams(location.search)
+    const requirementId = searchParams.get('id')
+
+    if (requirementId) {
+      requirementsApi.getRequirementById(Number(requirementId))
+        .then((data) => {
+          setSelectedRequirement(data)
+          setIsDetailVisible(true)
+        })
+        .catch((error) => {
+          message.error(`获取需求详情失败: ${error.message}`)
+        })
+    }
+  }, [location.search])
 
   // 获取需求列表
   const { data: requirements, loading, refresh } = useRequest(
     () => requirementsApi.getRequirementsByProjectId(Number(projectId)),
+    {
+      refreshDeps: [projectId],
+    },
+  )
+
+  // 获取迭代列表（用于需求关联）
+  const { data: iterations } = useRequest(
+    () => iterationsApi.getIterationsByProjectId(Number(projectId)),
     {
       refreshDeps: [projectId],
     },
@@ -85,7 +121,9 @@ export const Requirements: React.FC = () => {
         description: requirement.description,
         priority: requirement.priority,
         status: requirement.status,
-        assigned_to: requirement.assigned_to,
+        iteration_id: requirement.iteration_id,
+        start_time: requirement.start_time ? requirement.start_time.split('T')[0] : undefined,
+        end_time: requirement.end_time ? requirement.end_time.split('T')[0] : undefined,
       })
     }
     else {
@@ -103,18 +141,48 @@ export const Requirements: React.FC = () => {
 
   const handleSubmit = () => {
     form.validateFields().then((values) => {
+      // 使用当前用户的id作为负责人
+      const userId = userInfo?.id || null
+
       if (editingRequirement) {
-        updateRequirement(editingRequirement.id, values)
+        updateRequirement(editingRequirement.id, {
+          ...values,
+          assigned_to: userId,
+        })
       }
       else {
         createRequirement({
           ...values,
           project_id: Number(projectId),
-          creator_id: null, // 这里应该使用当前登录用户的ID
+          creator_id: userId,
+          assigned_to: userId,
           created_at: new Date().toISOString(),
         })
       }
     })
+  }
+
+  const handleRowClick = (record: Tables<'requirements'>) => {
+    setSelectedRequirement(record)
+    setIsDetailVisible(true)
+
+    // 更新 URL，但不触发页面刷新
+    const newUrl = `${location.pathname}?id=${record.id}`
+    window.history.pushState({ path: newUrl }, '', newUrl)
+  }
+
+  const handleDetailClose = () => {
+    setIsDetailVisible(false)
+    setSelectedRequirement(null)
+
+    // 移除 URL 中的参数
+    const newUrl = location.pathname
+    window.history.pushState({ path: newUrl }, '', newUrl)
+  }
+
+  const handleViewDetail = (e: React.MouseEvent, record: Tables<'requirements'>) => {
+    e.stopPropagation()
+    navigate(`/project/${projectId}/requirements?id=${record.id}`)
   }
 
   const columns = [
@@ -181,10 +249,23 @@ export const Requirements: React.FC = () => {
     {
       title: '操作',
       key: 'action',
-      width: 150,
+      width: 180,
       render: (_: any, record: Tables<'requirements'>) => (
         <Space>
-          <Button type="link" onClick={() => showModal(record)}>
+          <Button
+            type="link"
+            icon={<EyeOutlined />}
+            onClick={e => handleViewDetail(e, record)}
+          >
+            查看
+          </Button>
+          <Button
+            type="link"
+            onClick={(e) => {
+              e.stopPropagation()
+              showModal(record)
+            }}
+          >
             编辑
           </Button>
         </Space>
@@ -211,6 +292,9 @@ export const Requirements: React.FC = () => {
         rowKey="id"
         loading={loading}
         pagination={{ pageSize: 10 }}
+        onRow={record => ({
+          onClick: () => handleRowClick(record),
+        })}
       />
 
       <Modal
@@ -220,6 +304,8 @@ export const Requirements: React.FC = () => {
         onOk={handleSubmit}
         confirmLoading={createLoading || updateLoading}
         width={600}
+        okText="确定"
+        cancelText="取消"
       >
         <Form
           form={form}
@@ -267,13 +353,44 @@ export const Requirements: React.FC = () => {
           </Form.Item>
 
           <Form.Item
-            name="assigned_to"
-            label="负责人"
+            name="iteration_id"
+            label="关联迭代"
           >
-            <Input placeholder="请输入负责人" />
+            <Select placeholder="请选择关联迭代" allowClear>
+              {iterations?.map(iter => (
+                <Option key={iter.id} value={iter.id}>
+                  {new Date(iter.start_date).toLocaleDateString()}
+                  {' '}
+                  -
+                  {new Date(iter.end_date).toLocaleDateString()}
+                </Option>
+              ))}
+            </Select>
+          </Form.Item>
+
+          <Form.Item
+            name="start_time"
+            label="开始时间"
+          >
+            <Input type="date" />
+          </Form.Item>
+
+          <Form.Item
+            name="end_time"
+            label="结束时间"
+          >
+            <Input type="date" />
           </Form.Item>
         </Form>
       </Modal>
+
+      {/* 需求详情抽屉 */}
+      <WorkItemDetailDrawer
+        visible={isDetailVisible}
+        onClose={handleDetailClose}
+        workItem={selectedRequirement}
+        itemType="requirement"
+      />
     </div>
   )
 }

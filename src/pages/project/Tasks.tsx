@@ -1,11 +1,13 @@
 import type { Tables, TablesInsert } from '../../types/supabase'
-import { PlusOutlined } from '@ant-design/icons'
+import { EyeOutlined, PlusOutlined } from '@ant-design/icons'
 import styled from '@emotion/styled'
 import { useRequest } from 'ahooks'
 import { Button, Form, Input, message, Modal, Select, Space, Table, Tag, Typography } from 'antd'
-import React, { useState } from 'react'
-import { useParams } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
+import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import { requirementsApi, tasksApi } from '../../api'
+import { WorkItemDetailDrawer } from '../../components/workitem/WorkItemDetailDrawer'
+import useUserStore from '../../store/userStore'
 
 const { Title } = Typography
 const { TextArea } = Input
@@ -22,17 +24,43 @@ const StyledTable = styled(Table)`
   .ant-table-thead > tr > th {
     background-color: #fafafa;
   }
-  
+
   .ant-table-tbody > tr:hover > td {
     background-color: #f5f5f5;
+  }
+
+  .ant-table-tbody > tr {
+    cursor: pointer;
   }
 `
 
 export const Tasks: React.FC = () => {
   const { projectId } = useParams<{ projectId: string }>()
+  const navigate = useNavigate()
+  const location = useLocation()
   const [isModalVisible, setIsModalVisible] = useState(false)
+  const [isDetailVisible, setIsDetailVisible] = useState(false)
   const [editingTask, setEditingTask] = useState<Tables<'tasks'> | null>(null)
+  const [selectedTask, setSelectedTask] = useState<Tables<'tasks'> | null>(null)
   const [form] = Form.useForm()
+  const { userInfo } = useUserStore()
+
+  // 检查 URL 参数中是否有任务 ID
+  useEffect(() => {
+    const searchParams = new URLSearchParams(location.search)
+    const taskId = searchParams.get('id')
+
+    if (taskId) {
+      tasksApi.getTaskById(Number(taskId))
+        .then((data) => {
+          setSelectedTask(data)
+          setIsDetailVisible(true)
+        })
+        .catch((error) => {
+          message.error(`获取任务详情失败: ${error.message}`)
+        })
+    }
+  }, [location.search])
 
   // 获取任务列表
   const { data: tasks, loading, refresh } = useRequest(
@@ -93,7 +121,6 @@ export const Tasks: React.FC = () => {
         description: task.description,
         priority: task.priority,
         status: task.status,
-        assigned_to: task.assigned_to,
         requirement_id: task.requirement_id,
         start_time: task.start_time ? task.start_time.split('T')[0] : undefined,
         end_time: task.end_time ? task.end_time.split('T')[0] : undefined,
@@ -114,18 +141,48 @@ export const Tasks: React.FC = () => {
 
   const handleSubmit = () => {
     form.validateFields().then((values) => {
+      // 使用当前用户的id作为负责人
+      const userId = userInfo?.id || null
+
       if (editingTask) {
-        updateTask(editingTask.id, values)
+        updateTask(editingTask.id, {
+          ...values,
+          assigned_to: userId,
+        })
       }
       else {
         createTask({
           ...values,
           project_id: Number(projectId),
-          creator_id: null, // 这里应该使用当前登录用户的ID
+          creator_id: userId,
+          assigned_to: userId,
           created_at: new Date().toISOString(),
         })
       }
     })
+  }
+
+  const handleRowClick = (record: Tables<'tasks'>) => {
+    setSelectedTask(record)
+    setIsDetailVisible(true)
+
+    // 更新 URL，但不触发页面刷新
+    const newUrl = `${location.pathname}?id=${record.id}`
+    window.history.pushState({ path: newUrl }, '', newUrl)
+  }
+
+  const handleDetailClose = () => {
+    setIsDetailVisible(false)
+    setSelectedTask(null)
+
+    // 移除 URL 中的参数
+    const newUrl = location.pathname
+    window.history.pushState({ path: newUrl }, '', newUrl)
+  }
+
+  const handleViewDetail = (e: React.MouseEvent, record: Tables<'tasks'>) => {
+    e.stopPropagation()
+    navigate(`/project/${projectId}/tasks?id=${record.id}`)
   }
 
   const columns = [
@@ -195,26 +252,25 @@ export const Tasks: React.FC = () => {
       },
     },
     {
-      title: '开始时间',
-      dataIndex: 'start_time',
-      key: 'start_time',
-      width: 120,
-      render: (date: string | null) => date ? new Date(date).toLocaleDateString() : '-',
-    },
-    {
-      title: '结束时间',
-      dataIndex: 'end_time',
-      key: 'end_time',
-      width: 120,
-      render: (date: string | null) => date ? new Date(date).toLocaleDateString() : '-',
-    },
-    {
       title: '操作',
       key: 'action',
-      width: 150,
+      width: 180,
       render: (_: any, record: Tables<'tasks'>) => (
         <Space>
-          <Button type="link" onClick={() => showModal(record)}>
+          <Button
+            type="link"
+            icon={<EyeOutlined />}
+            onClick={e => handleViewDetail(e, record)}
+          >
+            查看
+          </Button>
+          <Button
+            type="link"
+            onClick={(e) => {
+              e.stopPropagation()
+              showModal(record)
+            }}
+          >
             编辑
           </Button>
         </Space>
@@ -241,6 +297,9 @@ export const Tasks: React.FC = () => {
         rowKey="id"
         loading={loading}
         pagination={{ pageSize: 10 }}
+        onRow={record => ({
+          onClick: () => handleRowClick(record),
+        })}
       />
 
       <Modal
@@ -250,6 +309,8 @@ export const Tasks: React.FC = () => {
         onOk={handleSubmit}
         confirmLoading={createLoading || updateLoading}
         width={600}
+        okText="确定"
+        cancelText="取消"
       >
         <Form
           form={form}
@@ -297,13 +358,6 @@ export const Tasks: React.FC = () => {
           </Form.Item>
 
           <Form.Item
-            name="assigned_to"
-            label="负责人"
-          >
-            <Input placeholder="请输入负责人" />
-          </Form.Item>
-
-          <Form.Item
             name="requirement_id"
             label="关联需求"
           >
@@ -329,6 +383,14 @@ export const Tasks: React.FC = () => {
           </Form.Item>
         </Form>
       </Modal>
+
+      {/* 任务详情抽屉 */}
+      <WorkItemDetailDrawer
+        visible={isDetailVisible}
+        onClose={handleDetailClose}
+        workItem={selectedTask}
+        itemType="task"
+      />
     </div>
   )
 }

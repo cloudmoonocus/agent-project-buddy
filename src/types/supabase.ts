@@ -77,6 +77,7 @@ export interface Database {
           id: number
           project_id: number | null
           start_date: string
+          is_locked: boolean | null
         }
         Insert: {
           created_at?: string | null
@@ -85,6 +86,7 @@ export interface Database {
           id?: never
           project_id?: number | null
           start_date: string
+          is_locked?: boolean
         }
         Update: {
           created_at?: string | null
@@ -93,6 +95,7 @@ export interface Database {
           id?: never
           project_id?: number | null
           start_date?: string
+          is_locked?: boolean
         }
         Relationships: [
           {
