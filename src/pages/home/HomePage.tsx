@@ -37,7 +37,7 @@ import {
   Typography,
 } from 'antd'
 import React, { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 const { Text } = Typography
 const { TextArea } = Input
@@ -319,15 +319,14 @@ export const HomePage: React.FC = () => {
                     <ProjectCard
                       key={project.id}
                       hoverable
+                      onClick={() => navigate(`/project/${project.id}`)}
                       title={(
-                        <Link to={`/project/${project.id}`} style={{ color: 'inherit' }}>
-                          <ProjectTitle>
-                            <FlexContainer justify="space-between" align="center">
-                              <span className="project-name">{project.name}</span>
-                              <Tag color={theme.colors.primary}>项目</Tag>
-                            </FlexContainer>
-                          </ProjectTitle>
-                        </Link>
+                        <ProjectTitle>
+                          <FlexContainer justify="space-between" align="center">
+                            <span className="project-name">{project.name}</span>
+                            <Tag color={theme.colors.primary}>项目</Tag>
+                          </FlexContainer>
+                        </ProjectTitle>
                       )}
                     >
                       <Text className="project-description">
@@ -348,6 +347,10 @@ export const HomePage: React.FC = () => {
                         size="small"
                         defaultActiveKey="____"
                         activeKey="____"
+                        onClick={(e) => {
+                          e.preventDefault()
+                          e.stopPropagation()
+                        }}
                         items={[
                           {
                             key: '/',

@@ -396,7 +396,7 @@ export const Dashboard: React.FC = () => {
         <Progress
           percent={completionRate}
           status="active"
-          strokeWidth={10}
+          size={10}
           style={{ marginTop: 16 }}
         />
       </StyledCard>

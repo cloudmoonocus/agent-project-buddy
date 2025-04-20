@@ -63,7 +63,7 @@ export const ProjectLayout: React.FC = () => {
           <Menu
             mode="inline"
             selectedKeys={[getSelectedKey()]}
-            style={{ height: '100%', borderRight: 0 }}
+            style={{ height: '100%', borderRight: 0, fontWeight: 500 }}
             items={menuItems}
           />
         </Sider>
