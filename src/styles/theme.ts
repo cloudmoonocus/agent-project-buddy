@@ -16,6 +16,7 @@ export const theme = {
     textPrimary: '#111827', // 近黑色
     textSecondary: '#4B5563', // 中灰色
     textTertiary: '#9CA3AF', // 浅灰色
+    textWhite: '#FFFFFF', // 白色
 
     // 边框色
     border: '#E5E7EB',

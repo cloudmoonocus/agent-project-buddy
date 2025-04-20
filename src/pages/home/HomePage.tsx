@@ -18,7 +18,6 @@ import {
   DashboardOutlined,
   FileTextOutlined,
   PlusOutlined,
-  ProjectOutlined,
   SyncOutlined,
 } from '@ant-design/icons'
 import styled from '@emotion/styled'
@@ -150,36 +149,6 @@ const EmptyProjectsContainer = styled.div`
   }
 `
 
-// 项目统计卡片
-const StatCard = styled(Card)`
-  border-radius: ${({ theme }) => theme.borderRadius.md};
-  border: 1px solid ${({ theme }) => theme.colors.border};
-  background-color: ${({ theme }) => theme.colors.backgroundElevated};
-  box-shadow: ${({ theme }) => theme.boxShadow.sm};
-  height: 100%;
-
-  .stat-title {
-    color: ${({ theme }) => theme.colors.textSecondary};
-    font-size: ${({ theme }) => theme.typography.fontSize.sm};
-    margin-bottom: ${({ theme }) => theme.spacing[2]};
-  }
-
-  .stat-value {
-    font-size: ${({ theme }) => theme.typography.fontSize['2xl']};
-    font-weight: ${({ theme }) => theme.typography.fontWeight.bold};
-    color: ${({ theme }) => theme.colors.textPrimary};
-  }
-
-  .stat-icon {
-    font-size: 40px;
-    opacity: 0.1;
-    position: absolute;
-    right: 15px;
-    top: 50%;
-    transform: translateY(-50%);
-  }
-`
-
 // 动画效果组件
 const FadeInDiv = styled.div`
   animation: fadeIn 0.5s ease-out;
@@ -248,14 +217,6 @@ export const HomePage: React.FC = () => {
     })
   }
 
-  // 统计数据（示例）
-  const statsData = [
-    { title: '我参与的项目', value: projects.length, icon: <ProjectOutlined /> },
-    { title: '进行中的迭代', value: 2, icon: <SyncOutlined /> },
-    { title: '待处理任务', value: 12, icon: <CheckSquareOutlined /> },
-    { title: '未解决的缺陷', value: 5, icon: <BugOutlined /> },
-  ]
-
   const formatDate = (dateString?: string | null) => {
     if (!dateString)
       return ''
@@ -278,17 +239,6 @@ export const HomePage: React.FC = () => {
             创建新项目
           </PrimaryButton>
         </FlexContainer>
-
-        {/* 统计信息卡片 */}
-        <CardGrid style={{ marginBottom: theme.spacing[8] }}>
-          {statsData.map((stat, index) => (
-            <StatCard key={index} styles={{ body: { padding: theme.spacing[4] } }}>
-              <div className="stat-title">{stat.title}</div>
-              <div className="stat-value">{stat.value}</div>
-              <div className="stat-icon">{stat.icon}</div>
-            </StatCard>
-          ))}
-        </CardGrid>
 
         <SectionTitle level={3}>我的项目</SectionTitle>
 

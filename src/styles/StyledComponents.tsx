@@ -46,6 +46,7 @@ export const EnhancedCard = styled(Card)`
 
 // 主要按钮
 export const PrimaryButton = styled(Button)`
+  color: ${({ theme }: { theme: Theme }) => theme.colors.textWhite};
   background: ${({ theme }: { theme: Theme }) => theme.colors.primary};
   border-color: ${({ theme }: { theme: Theme }) => theme.colors.primary};
   border-radius: ${({ theme }: { theme: Theme }) => theme.borderRadius.sm};
@@ -54,6 +55,7 @@ export const PrimaryButton = styled(Button)`
   padding: 6px 16px;
 
   &:hover {
+    color: ${({ theme }: { theme: Theme }) => theme.colors.textPrimary} !important;
     background: ${({ theme }: { theme: Theme }) => theme.colors.primaryHover};
     border-color: ${({ theme }: { theme: Theme }) => theme.colors.primaryHover};
     transform: translateY(-1px);
