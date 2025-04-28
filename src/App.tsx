@@ -11,8 +11,6 @@ import { Tasks } from '@/pages/project/Tasks'
 import { antdThemeConfig } from '@/styles/antdTheme'
 import { globalStyles } from '@/styles/globalStyles'
 import { theme } from '@/styles/theme'
-import { CopilotKit } from '@copilotkit/react-core'
-import { CopilotSidebar } from '@copilotkit/react-ui'
 import { ThemeProvider } from '@emotion/react'
 import { ConfigProvider } from 'antd'
 import { Inspector } from 'react-dev-inspector'
@@ -29,42 +27,33 @@ const root = createRoot(
 root.render(
   <>
     <Inspector keys={['command', 'shift', 'c']} />
-    <CopilotKit publicApiKey={import.meta.env.VITE_COPILOT_KIT_KEY}>
-      <CopilotSidebar
-        labels={{
-          title: 'Sidebar Assistant',
-          initial: 'How can I help you today?',
-        }}
-        instructions="Your product deserves an AI sidekick"
-      />
-      <ConfigProvider theme={antdThemeConfig}>
-        <ThemeProvider theme={theme}>
-          {globalStyles}
-          <BrowserRouter>
-            <Routes>
-              <Route path="/auth" element={<AuthPage />} />
-              <Route
-                path="/"
-                element={(
-                  <ProtectedRoute>
-                    <AppLayout />
-                  </ProtectedRoute>
-                )}
-              >
-                <Route index element={<HomePage />} />
-                <Route path="project/:projectId" element={<ProjectLayout />}>
-                  <Route index element={<Dashboard />} />
-                  <Route path="requirements" element={<Requirements />} />
-                  <Route path="tasks" element={<Tasks />} />
-                  <Route path="defects" element={<Defects />} />
-                  <Route path="iterations" element={<Iterations />} />
-                </Route>
-                <Route path="*" element={<Navigate to="/" replace />} />
+    <ConfigProvider theme={antdThemeConfig}>
+      <ThemeProvider theme={theme}>
+        {globalStyles}
+        <BrowserRouter>
+          <Routes>
+            <Route path="/auth" element={<AuthPage />} />
+            <Route
+              path="/"
+              element={(
+                <ProtectedRoute>
+                  <AppLayout />
+                </ProtectedRoute>
+              )}
+            >
+              <Route index element={<HomePage />} />
+              <Route path="project/:projectId" element={<ProjectLayout />}>
+                <Route index element={<Dashboard />} />
+                <Route path="requirements" element={<Requirements />} />
+                <Route path="tasks" element={<Tasks />} />
+                <Route path="defects" element={<Defects />} />
+                <Route path="iterations" element={<Iterations />} />
               </Route>
-            </Routes>
-          </BrowserRouter>
-        </ThemeProvider>
-      </ConfigProvider>
-    </CopilotKit>
+              <Route path="*" element={<Navigate to="/" replace />} />
+            </Route>
+          </Routes>
+        </BrowserRouter>
+      </ThemeProvider>
+    </ConfigProvider>
   </>,
 )
