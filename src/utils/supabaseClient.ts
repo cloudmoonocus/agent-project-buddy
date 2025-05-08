@@ -2,8 +2,8 @@ import type { Database } from '@/types/supabase.ts'
 import { createClient } from '@supabase/supabase-js'
 import { message } from 'antd'
 
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL
-const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY
+const supabaseUrl = typeof process !== 'undefined' ? process.env.VITE_SUPABASE_URL as string : import.meta.env.VITE_SUPABASE_URL as string
+const supabaseKey = typeof process !== 'undefined' ? process.env.VITE_SUPABASE_ANON_KEY as string : import.meta.env.VITE_SUPABASE_ANON_KEY as string
 const supabase = createClient<Database>(supabaseUrl, supabaseKey)
 
 // eslint-disable-next-line ts/no-unsafe-function-type

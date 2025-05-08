@@ -1,6 +1,7 @@
 import { wrapApiWithRequest } from '@/utils/apiWrapper'
 import * as iterationsApiOriginal from './iterations'
 import * as projectsApiOriginal from './projects'
+import * as userConfigApiOriginal from './userConfig'
 import * as defectsApiOriginal from './workitem/defects.ts'
 import * as requirementsApiOriginal from './workitem/requirements.ts'
 import * as tasksApiOriginal from './workitem/tasks.ts'
@@ -11,6 +12,7 @@ const iterationsApi = wrapApiWithRequest(iterationsApiOriginal)
 const projectsApi = wrapApiWithRequest(projectsApiOriginal)
 const requirementsApi = wrapApiWithRequest(requirementsApiOriginal)
 const tasksApi = wrapApiWithRequest(tasksApiOriginal)
+const userConfigApi = wrapApiWithRequest(userConfigApiOriginal)
 
 export {
   defectsApi,
@@ -18,4 +20,5 @@ export {
   projectsApi,
   requirementsApi,
   tasksApi,
+  userConfigApi,
 }

@@ -1,13 +1,16 @@
 import type { ItemType } from 'antd/es/menu/interface'
+import { userConfigApi } from '@/api'
 import { authAPI } from '@/api/auth'
 import useUserStore from '@/store/userStore'
 import { FlexContainer } from '@/styles/StyledComponents'
 import { theme } from '@/styles/theme'
-import { LogoutOutlined, SettingOutlined, UserOutlined } from '@ant-design/icons'
+import { LogoutOutlined, SettingOutlined } from '@ant-design/icons'
 import styled from '@emotion/styled'
 import { Layout as AntdLayout, Avatar, Dropdown, Typography } from 'antd'
 import React, { useCallback, useEffect, useState } from 'react'
 import { Outlet, useNavigate } from 'react-router-dom'
+import { CopilotKitComponent } from './CopilotKitComponent'
+import UserConfigEditor from './user/UserConfigEditor'
 
 const { Header, Content } = AntdLayout
 
@@ -60,7 +63,8 @@ export const AppLayout: React.FC = () => {
   const navigate = useNavigate()
   const [userName, setUserName] = useState<string>('')
   const [userInitial, setUserInitial] = useState<string>('')
-  const { setUserInfo } = useUserStore()
+  const { userInfo, setUserInfo, setUserConfig } = useUserStore()
+  const [configModalOpen, setConfigModalOpen] = useState(false)
 
   const fetchUserInfo = useCallback(async () => {
     if (setUserInfo) {
@@ -71,9 +75,27 @@ export const AppLayout: React.FC = () => {
     }
   }, [setUserInfo])
 
+  const fetchUserConfig = useCallback(async () => {
+    if (userInfo?.id && setUserConfig) {
+      try {
+        const config = await userConfigApi.getUserConfig(userInfo.id)
+        setUserConfig(config)
+      }
+      catch (error) {
+        console.error('获取用户配置失败', error)
+      }
+    }
+  }, [userInfo, setUserConfig])
+
   useEffect(() => {
     fetchUserInfo()
   }, [fetchUserInfo])
+
+  useEffect(() => {
+    if (userInfo) {
+      fetchUserConfig()
+    }
+  }, [userInfo, fetchUserConfig])
 
   const handleLogout = async () => {
     try {
@@ -87,17 +109,10 @@ export const AppLayout: React.FC = () => {
 
   const userMenuItems = [
     {
-      key: 'profile',
-      icon: <UserOutlined />,
-      label: '个人信息',
-    },
-    {
-      key: 'settings',
+      key: 'config',
       icon: <SettingOutlined />,
-      label: '账户设置',
-    },
-    {
-      type: 'divider',
+      label: '用户配置',
+      onClick: () => setConfigModalOpen(true),
     },
     {
       key: 'logout',
@@ -130,6 +145,10 @@ export const AppLayout: React.FC = () => {
       <ContentWrapper>
         <Outlet />
       </ContentWrapper>
+      <CopilotKitComponent />
+      <UserConfigEditor open={configModalOpen} onClose={() => setConfigModalOpen(false)} />
     </AntdLayout>
   )
 }
+
+export default AppLayout
