@@ -106,6 +106,8 @@ export const Iterations: React.FC = () => {
 
   // 更新迭代
   const { run: updateIteration, loading: updateLoading } = useRequest(
+    // eslint-disable-next-line ts/ban-ts-comment
+    // @ts-expect-error
     (id: number, values: Partial<Tables<'iterations'>>) => iterationsApi.updateIteration(id, values),
     {
       manual: true,
@@ -511,7 +513,7 @@ export const Iterations: React.FC = () => {
       )}
 
       <StyledTable
-        columns={columns}
+        columns={columns as any}
         dataSource={iterations}
         rowKey="id"
         loading={loading}

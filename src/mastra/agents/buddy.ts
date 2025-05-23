@@ -37,6 +37,7 @@ export const projectBuddyAgent = new Agent({
   instructions,
   tools: {
     ...allTools,
+    // eslint-disable-next-line antfu/no-top-level-await
     ...(await mcp.getTools()),
   },
 })

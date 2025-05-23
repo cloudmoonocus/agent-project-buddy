@@ -1,3 +1,4 @@
+import { getEnv } from '@/utils/env.ts'
 import {
   CopilotRuntime,
   copilotRuntimeNodeHttpEndpoint,
@@ -33,7 +34,7 @@ export const mastra = new Mastra({
         method: `POST`,
         handler: async (c) => {
           const client = new MastraClient({
-            baseUrl: process.env.MASTRA_API_URL || 'http://localhost:4111',
+            baseUrl: getEnv('MASTRA_API_URL') || 'http://localhost:4111',
           })
           const runtime = new CopilotRuntime({
             agents: await client.getAGUI({ resourceId: 'projectBuddyAgent' }),
@@ -48,7 +49,7 @@ export const mastra = new Mastra({
       }),
     ],
     cors: {
-      origin: [process.env.WEB_STATIC_URL || 'http://localhost:3000'],
+      origin: [getEnv('WEB_STATIC_URL') || 'http://localhost:3000'],
       allowMethods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
       allowHeaders: ['Content-Type', 'Authorization', 'x-copilotkit-runtime-client-gql-version'],
       credentials: false,
