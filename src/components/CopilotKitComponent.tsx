@@ -1,3 +1,4 @@
+import { getEnv } from '@/utils/env.ts'
 import { CopilotKit } from '@copilotkit/react-core'
 import { CopilotSidebar } from '@copilotkit/react-ui'
 import '@copilotkit/react-ui/styles.css'
@@ -5,7 +6,7 @@ import '@copilotkit/react-ui/styles.css'
 export function CopilotKitComponent() {
   return (
     <CopilotKit
-      runtimeUrl="http://localhost:4111/copilotkit"
+      runtimeUrl={`${getEnv('MASTRA_API_URL') || 'http://localhost:4111'}/copilotkit`}
       agent="projectBuddyAgent"
     >
       <CopilotSidebar

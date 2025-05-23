@@ -22,6 +22,8 @@ export default defineConfig(({ mode }) => {
         SUPABASE_ANON_KEY: env.SUPABASE_ANON_KEY,
         COPILOT_KIT_KEY: env.COPILOT_KIT_KEY,
         DEEPSEEK_API_KEY: env.DEEPSEEK_API_KEY,
+        MASTRA_API_URL: env.MASTRA_API_URL,
+        WEB_STATIC_URL: env.WEB_STATIC_URL,
       },
     },
   }
