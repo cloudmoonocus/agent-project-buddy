@@ -9,7 +9,8 @@
     "build": "tsc -b && vite build",
     "lint": "eslint",
     "lint:fix": "eslint --fix",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "slidev": "cd slidev && npm run dev"
   },
   "dependencies": {
     "@ai-sdk/deepseek": "^0.2.14",
