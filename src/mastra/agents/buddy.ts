@@ -31,6 +31,17 @@ const allTools = {
   ...defectTools,
 }
 
+async function getMCPTools() {
+  try {
+    const tools = await mcp.getTools()
+    return tools
+  }
+  catch {
+    console.error('获取MCP工具失败')
+    return {}
+  }
+}
+
 export const projectBuddyAgent = new Agent({
   name: 'projectBuddyAgent',
   model: deepseek('deepseek-chat'),
@@ -38,6 +49,6 @@ export const projectBuddyAgent = new Agent({
   tools: {
     ...allTools,
     // eslint-disable-next-line antfu/no-top-level-await
-    ...(await mcp.getTools()),
+    ...(await getMCPTools()),
   },
 })
