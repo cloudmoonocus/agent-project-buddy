@@ -3,7 +3,6 @@ theme: default
 transition: fade
 title: 基于 Agent + MCP 的需求管理平台设计与实现
 paginate: true
-layout: cover
 highlighter: shiki
 fonts:
   sans: Noto Sans SC
@@ -22,44 +21,6 @@ AI 驱动的智能化需求管理解决方案
   <div class="ml-3 flex flex-col text-left">
     <div>东北大学</div>
     <div class="text-sm opacity-50">2025.06.03</div>
-  </div>
-</div>
-
----
-
-<h2 class="text-center">
-📋 目录
-</h2>
-
-<div class="flex flex-col space-y-3 mt-8 max-w-md mx-auto">
-  <div class="flex items-center space-x-3 p-3 rounded-lg bg-gradient-to-r from-blue-50 to-blue-100 dark:from-blue-900/20 dark:to-blue-800/20">
-    <div class="w-2 h-2 bg-blue-500 rounded-full"></div>
-    <span class="text-base font-medium">🎯 背景</span>
-  </div>
-
-  <div class="flex items-center space-x-3 p-3 rounded-lg bg-gradient-to-r from-green-50 to-green-100 dark:from-green-900/20 dark:to-green-800/20">
-    <div class="w-2 h-2 bg-green-500 rounded-full"></div>
-    <span class="text-base font-medium">🔧 关键技术概述</span>
-  </div>
-
-  <div class="flex items-center space-x-3 p-3 rounded-lg bg-gradient-to-r from-purple-50 to-purple-100 dark:from-purple-900/20 dark:to-purple-800/20">
-    <div class="w-2 h-2 bg-purple-500 rounded-full"></div>
-    <span class="text-base font-medium">🏗️ 系统架构设计</span>
-  </div>
-
-  <div class="flex items-center space-x-3 p-3 rounded-lg bg-gradient-to-r from-orange-50 to-orange-100 dark:from-orange-900/20 dark:to-orange-800/20">
-    <div class="w-2 h-2 bg-orange-500 rounded-full"></div>
-    <span class="text-base font-medium">✨ 模块实现亮点</span>
-  </div>
-
-  <div class="flex items-center space-x-3 p-3 rounded-lg bg-gradient-to-r from-red-50 to-red-100 dark:from-red-900/20 dark:to-red-800/20">
-    <div class="w-2 h-2 bg-red-500 rounded-full"></div>
-    <span class="text-base font-medium">🧪 系统测试</span>
-  </div>
-
-  <div class="flex items-center space-x-3 p-3 rounded-lg bg-gradient-to-r from-indigo-50 to-indigo-100 dark:from-indigo-900/20 dark:to-indigo-800/20">
-    <div class="w-2 h-2 bg-indigo-500 rounded-full"></div>
-    <span class="text-base font-medium">🚀 总结与展望</span>
   </div>
 </div>
 
@@ -90,7 +51,7 @@ layout: center
           <span class="text-gray-700 dark:text-gray-300">多渠道沟通、反馈周期长，易遗漏关键信息</span>
         </div>
       </div>
-      <div class="flex items-center space-x-4 p-4 bg-white/70 dark:bg-gray-800/70 rounded-xl shadow-sm border border-orange-100 dark:border-orange-900/30">
+      <div class="flex items-center space-x-4 p-4 bg-white/70 rounded-xl shadow-sm border border-orange-100 dark:border-orange-900/30">
         <div class="flex-shrink-0 w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center">
           <span class="text-white text-sm font-bold">2</span>
         </div>
@@ -99,7 +60,7 @@ layout: center
           <span class="text-gray-700 dark:text-gray-300">缺乏统一标准，拆分颗粒度参差不齐</span>
         </div>
       </div>
-      <div class="flex items-center space-x-4 p-4 bg-white/70 dark:bg-gray-800/70 rounded-xl shadow-sm border border-yellow-100 dark:border-yellow-900/30">
+      <div class="flex items-center space-x-4 p-4 bg-white/70 rounded-xl shadow-sm border border-yellow-100 dark:border-yellow-900/30">
         <div class="flex-shrink-0 w-8 h-8 bg-yellow-500 rounded-full flex items-center justify-center">
           <span class="text-white text-sm font-bold">3</span>
         </div>
@@ -108,7 +69,7 @@ layout: center
           <span class="text-gray-700 dark:text-gray-300">不同系统独立运转，更新推送不及时</span>
         </div>
       </div>
-      <div class="flex items-center space-x-4 p-4 bg-white/70 dark:bg-gray-800/70 rounded-xl shadow-sm border border-red-100 dark:border-red-900/30">
+      <div class="flex items-center space-x-4 p-4 bg-white/70 rounded-xl shadow-sm border border-red-100 dark:border-red-900/30">
         <div class="flex-shrink-0 w-8 h-8 bg-red-600 rounded-full flex items-center justify-center">
           <span class="text-white text-sm font-bold">4</span>
         </div>
@@ -125,7 +86,7 @@ layout: center
 layout: center
 ---
 
-<img class="h-120 " src="./img/tencent.png" />
+<img class="h-120 " src="./assets/tencent.png" />
 <div class="text-center text-gray text-14px mt-8px">图片来源：腾讯 CODING 平台</div>
 
 ---
@@ -155,7 +116,7 @@ layout: center
           <span class="text-gray-700 dark:text-gray-300">通过大模型解析需求，实现自动化拆分与分配</span>
         </div>
       </div>
-      <div class="flex items-center space-x-4 p-4 bg-white/70 dark:bg-gray-800/70 rounded-xl shadow-sm border border-orange-100 dark:border-orange-900/30">
+      <div class="flex items-center space-x-4 p-4 bg-white/70 rounded-xl shadow-sm border border-orange-100 dark:border-orange-900/30">
         <div class="flex-shrink-0 w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center">
           <span class="text-white text-sm font-bold">2</span>
         </div>
@@ -164,7 +125,7 @@ layout: center
           <span class="text-gray-700 dark:text-gray-300">统一接入各类工具与平台，打通数据与任务流</span>
         </div>
       </div>
-      <div class="flex items-center space-x-4 p-4 bg-white/70 dark:bg-gray-800/70 rounded-xl shadow-sm border border-yellow-100 dark:border-yellow-900/30">
+      <div class="flex items-center space-x-4 p-4 bg-white/70 rounded-xl shadow-sm border border-yellow-100 dark:border-yellow-900/30">
         <div class="flex-shrink-0 w-8 h-8 bg-yellow-500 rounded-full flex items-center justify-center">
           <span class="text-white text-sm font-bold">3</span>
         </div>
@@ -173,7 +134,7 @@ layout: center
           <span class="text-gray-700 dark:text-gray-300">快速响应、实时同步、精准预警，构建智能化闭环</span>
         </div>
       </div>
-      <div class="flex items-center space-x-4 p-4 bg-white/70 dark:bg-gray-800/70 rounded-xl shadow-sm border border-red-100 dark:border-red-900/30">
+      <div class="flex items-center space-x-4 p-4 bg-white/70 rounded-xl shadow-sm border border-red-100 dark:border-red-900/30">
         <div class="flex-shrink-0 w-8 h-8 bg-red-600 rounded-full flex items-center justify-center">
           <span class="text-white text-sm font-bold">4</span>
         </div>
@@ -191,7 +152,7 @@ layout: center
 ---
 
 <SlidevVideo class="h-120" controls>
-  <source src="./img/AgentVideo.mp4" type="video/mp4" />
+  <source src="./assets/AgentVideo.mp4" type="video/mp4" />
 </SlidevVideo>
 <div class="text-center text-gray text-14px mt-8px">Agent 智能创建“需求”和“任务”</div>
 
@@ -200,7 +161,7 @@ layout: center
 ---
 
 <SlidevVideo class="h-120" controls>
-  <source src="./img/MCPVideo.mp4" type="video/mp4" />
+  <source src="./assets/MCPVideo.mp4" type="video/mp4" />
 </SlidevVideo>
 <div class="text-center text-gray text-14px mt-8px">通过灵活配置 MCP 实现动态工具扩展</div>
 
@@ -391,7 +352,7 @@ layout: center
 
 <h2 class="text-center">AI 交互数据流程图</h2>
 
-<img class="mt-14px h-100 mx-auto" src="./img/AIDataFlow.png" />
+<img class="mt-14px h-100 mx-auto" src="./assets/AIDataFlow.png" />
 
 ---
 
@@ -502,7 +463,7 @@ const mcp = new MCPClient(first(mcpConfig)?.mcp_config || {})
 
 <!-- 标题区域 -->
 <div class="mb-6">
-  <h2 class="text-3xl font-black bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent mb-2">
+  <h2 class="mb-2">
     核心数据模型设计
   </h2>
   <div class="text-lg text-slate-600 dark:text-slate-400 font-medium">
@@ -513,7 +474,7 @@ const mcp = new MCPClient(first(mcpConfig)?.mcp_config || {})
   <!-- 左侧图片区域 -->
   <div class="col-span-2">
     <div class="bg-gradient-to-br from-slate-100 to-slate-200 dark:from-slate-800 dark:to-slate-900 rounded-3xl p-6 shadow-2xl border border-slate-200 dark:border-slate-700">
-      <img class="w-full object-contain rounded-xl shadow-lg" src="./img/SupabaseSchema.png" />
+      <img class="w-full object-contain rounded-xl shadow-lg" src="./assets/SupabaseSchema.png" />
       <div class="text-center text-slate-600 dark:text-slate-400 text-sm mt-4 font-medium">
         Supabase 数据库表结构图
       </div>
@@ -569,42 +530,345 @@ const mcp = new MCPClient(first(mcpConfig)?.mcp_config || {})
 
 ---
 
-## 系统测试与效果
+## 系统集成与测试
+
+<div class="mt-8 flex gap-8 items-start">
+  <!-- 左侧: Vercel CICD 图片 -->
+  <div class="w-110">
+    <div class="bg-gradient-to-br from-slate-100 to-slate-200 rounded-2xl p-4 shadow-xl border border-slate-200">
+      <img class="w-full object-contain rounded-xl shadow-lg" src="./assets/VercelDeloy.png" />
+      <div class="text-center text-slate-600 text-sm mt-3 font-medium">
+        Vercel CI/CD 集成部署
+      </div>
+    </div>
+  </div>
+  <!-- 右侧: 环境配置详情 -->
+  <div class="flex-1 space-y-3">
+    <!-- GitHub 集成 -->
+    <div class="bg-white/70 rounded-xl py-3 px-5 shadow-sm border border-gray-200">
+      <div class="flex items-center space-x-3 mb-2">
+        <div class="w-6 h-6 bg-black rounded-full flex items-center justify-center">
+          <span class="text-white text-xs">🐙</span>
+        </div>
+        <h3 class="text-base font-bold text-gray-800">GitHub 自动集成</h3>
+      </div>
+      <div class="text-xs text-gray-600 space-y-1">
+        <div class="flex items-center space-x-2">
+          <div class="w-2 h-2 bg-black rounded-full"></div>
+          <div>代码推送自动触发构建</div>
+        </div>
+        <div class="flex items-center space-x-2">
+          <div class="w-2 h-2 bg-black rounded-full"></div>
+          <div>Pull Request 自动部署预览</div>
+        </div>
+      </div>
+    </div>
+    <!-- 多环境管理 -->
+    <div class="bg-white/70 rounded-xl py-3 px-5 shadow-sm border border-gray-200">
+      <div class="flex items-center space-x-3 mb-2">
+        <div class="w-6 h-6 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center">
+          <span class="text-white text-xs">🌍</span>
+        </div>
+        <h3 class="text-base font-bold text-gray-800">多环境部署</h3>
+      </div>
+      <div class="space-y-1">
+        <div class="flex items-center space-x-2">
+          <div class="w-2 h-2 bg-yellow-500 rounded-full"></div>
+          <span class="text-xs font-medium text-yellow-700">Preview: PR 分支自动预览</span>
+        </div>
+        <div class="flex items-center space-x-2">
+          <div class="w-2 h-2 bg-green-500 rounded-full"></div>
+          <span class="text-xs font-medium text-green-700">Production: main 分支生产部署</span>
+        </div>
+      </div>
+    </div>
+    <!-- 环境变量管理 -->
+    <div class="bg-white/70 rounded-xl py-3 px-5 shadow-sm border border-gray-200">
+      <div class="flex items-center space-x-3 mb-2">
+        <div class="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center">
+          <span class="text-white text-xs">🔐</span>
+        </div>
+        <h3 class="text-base font-bold text-gray-800">配置隔离</h3>
+      </div>
+      <div class="text-xs text-gray-600 space-y-1">
+        <div class="flex items-center space-x-2">
+          <div class="w-2 h-2 bg-black rounded-full"></div>
+          <div>数据库连接分环境配置</div>
+        </div>
+        <div class="flex items-center space-x-2">
+          <div class="w-2 h-2 bg-black rounded-full"></div>
+          <div>API 密钥通过环境变量安全管理</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="mt-12"></div>
+
+> Vercel 是一个面向前端开发者的云平台，用于快速构建、部署和交付现代 Web 应用。
+
+---
+
+## 系统集成与测试
+
+<div class="mt-8 bg-gradient-to-r from-blue-50 to-purple-50 rounded-2xl p-6 shadow-lg border border-blue-200">
+  <div class="flex items-center space-x-3 mb-4">
+    <div class="w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center">
+      <span class="text-white text-xl">💬</span>
+    </div>
+    <h3 class="text-xl font-bold text-gray-800">多轮对话优化 System Prompt</h3>
+  </div>
+  <div class="grid grid-cols-2 gap-6">
+    <div class="space-y-3">
+      <div class="bg-white/70 rounded-lg p-4 border border-blue-100">
+        <h4 class="font-bold text-blue-700 mb-2 flex items-center">
+          <span class="mr-2">🎯</span>角色定位迭代
+        </h4>
+        <div class="text-sm text-gray-600 space-y-1">
+          <div>• 从通用助手 → 专业项目管理助手</div>
+          <div>• 增强业务领域理解能力</div>
+          <div>• 优化指令响应精准度</div>
+        </div>
+      </div>
+      <div class="bg-white/70 rounded-lg p-4 border border-purple-100">
+        <h4 class="font-bold text-purple-700 mb-2 flex items-center">
+          <span class="mr-2">🔄</span>上下文记忆优化
+        </h4>
+        <div class="text-sm text-gray-600 space-y-1">
+          <div>• 记录项目状态与历史操作</div>
+          <div>• 保持会话连贯性</div>
+          <div>• 支持复杂任务链式执行</div>
+        </div>
+      </div>
+    </div>
+    <div class="space-y-3">
+      <div class="bg-white/70 rounded-lg p-4 border border-green-100">
+        <h4 class="font-bold text-green-700 mb-2 flex items-center">
+          <span class="mr-2">⚙️</span>工具调用优化
+        </h4>
+        <div class="text-sm text-gray-600 space-y-1">
+          <div>• 智能选择最适合的工具组合</div>
+          <div>• 减少无效 API 调用</div>
+          <div>• 提升执行效率</div>
+        </div>
+      </div>
+      <div class="bg-white/70 rounded-lg p-4 border border-orange-100">
+        <h4 class="font-bold text-orange-700 mb-2 flex items-center">
+          <span class="mr-2">📊</span>反馈循环机制
+        </h4>
+        <div class="text-sm text-gray-600 space-y-1">
+          <div>• 根据用户反馈调整策略</div>
+          <div>• 学习用户操作偏好</div>
+          <div>• 持续改进对话质量</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+---
+
+## 系统集成与测试
 
 <div class="mt-14px"></div>
 
-- 多轮对话优化 System Prompt
-- 单元测试场景
-  - 创建需求、任务
-  - 自动分解与分配
-  - 状态同步与更新
-- 集成测试
-  - 与 Jira、GitHub 双向数据流
-  - MCP 工具动态注册与调用
-- 性能测试
-  - 高并发场景下稳定性
-  - 实时数据同步延迟
+通过 GitHub Actions 实现自动化测试，确保代码质量和功能稳定性。
+```yaml
+# .github/workflows/test.yml
+name: Run Tests
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+      - name: Install dependencies
+        run: npm ci
+      - name: Run tests
+        run: npm test
+```
+
 
 ---
 
 ## 总结
 
-* 利用 Agent + MCP，实现了智能化需求管理平台
-* AI 自动理解 → 自动执行 → 自动反馈
-* MCP 实现平台级集成标准
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
+  <div class="p-4 bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl border border-blue-200">
+    <div class="text-center mb-3">
+      <div class="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center mx-auto">
+        <span class="text-white text-xl">🤖</span>
+      </div>
+    </div>
+    <h3 class="font-bold text-blue-700 text-center mb-2">AI Agent 智能化</h3>
+    <div class="text-sm text-gray-600 space-y-1">
+      <div>• 自然语言需求理解与解析</div>
+      <div>• 智能任务分解与调度</div>
+      <div>• 基于历史数据的优化决策</div>
+    </div>
+  </div>
+
+  <div class="p-4 bg-gradient-to-br from-green-50 to-green-100 rounded-xl border border-green-200">
+    <div class="text-center mb-3">
+      <div class="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center mx-auto">
+        <span class="text-white text-xl">🔗</span>
+      </div>
+    </div>
+    <h3 class="font-bold text-green-700 text-center mb-2">MCP 协议集成</h3>
+    <div class="text-sm text-gray-600 space-y-1">
+      <div>• 统一工具接入标准</div>
+      <div>• Jira、GitHub 双向同步</div>
+      <div>• 动态扩展外部能力</div>
+    </div>
+  </div>
+
+  <div class="p-4 bg-gradient-to-br from-purple-50 to-purple-100 rounded-xl border border-purple-200">
+    <div class="text-center mb-3">
+      <div class="w-12 h-12 bg-purple-500 rounded-full flex items-center justify-center mx-auto">
+        <span class="text-white text-xl">⚡</span>
+      </div>
+    </div>
+    <h3 class="font-bold text-purple-700 text-center mb-2">流程自动化</h3>
+    <div class="text-sm text-gray-600 space-y-1">
+      <div>• 需求采集到变更追踪闭环</div>
+      <div>• 风险预警与异常监测</div>
+      <div>• 显著提升管理效率</div>
+    </div>
+  </div>
+</div>
+
+<div class="mt-6 p-4 bg-gradient-to-r from-gray-50 to-gray-100 rounded-xl border border-gray-200">
+  <h4 class="font-bold text-gray-700 mb-2 flex items-center">
+    <span class="mr-2">🎯</span>核心贡献
+  </h4>
+  <div class="text-sm text-gray-600 grid grid-cols-1 md:grid-cols-2 gap-3">
+    <div>
+      <span class="font-medium text-blue-600">理论创新：</span>标准化AI-企业系统双向通信
+    </div>
+    <div>
+      <span class="font-medium text-green-600">技术实现：</span>高内聚低耦合设计，降低系统集成复杂度
+    </div>
+    <div>
+      <span class="font-medium text-purple-600">工程验证：</span>高并发环境下动态工具调用稳定性得到验证
+    </div>
+    <div>
+      <span class="font-medium text-orange-600">应用价值：</span>项目全流程自动化，用户认可度高
+    </div>
+  </div>
+</div>
 
 ---
 
 ## 展望
 
-* 引入更多模型能力：如主动学习、知识图谱
-* MCP 工具生态持续扩展（适配 Notion、飞书等）
-* 多 Agent 协作：项目全生命周期智能化
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
+  <!-- 智能算法优化 -->
+  <div class="space-y-4">
+    <div class="text-center">
+      <div class="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-500 rounded-full flex items-center justify-center mx-auto mb-3">
+        <span class="text-white text-2xl">🧠</span>
+      </div>
+      <h3 class="text-lg font-bold text-gray-800">智能算法优化</h3>
+    </div>
+    <div class="space-y-3">
+      <div class="p-3 bg-blue-50 rounded-lg border border-blue-100">
+        <h4 class="font-bold text-blue-700 text-sm mb-1">自适应学习</h4>
+        <div class="text-xs text-gray-600">持续优化需求解析准确率</div>
+      </div>
+      <div class="p-3 bg-purple-50 rounded-lg border border-purple-100">
+        <h4 class="font-bold text-purple-700 text-sm mb-1">跨领域扩展</h4>
+        <div class="text-xs text-gray-600">增强专业术语理解，支持更多行业场景</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 系统架构升级 -->
+  <div class="space-y-4">
+    <div class="text-center">
+      <div class="w-16 h-16 bg-gradient-to-br from-green-500 to-teal-500 rounded-full flex items-center justify-center mx-auto mb-3">
+        <span class="text-white text-2xl">🏗️</span>
+      </div>
+      <h3 class="text-lg font-bold text-gray-800">系统架构升级</h3>
+    </div>
+    <div class="space-y-3">
+      <div class="p-3 bg-green-50 rounded-lg border border-green-100">
+        <h4 class="font-bold text-green-700 text-sm mb-1">实时通信增强</h4>
+        <div class="text-xs text-gray-600">WebSocket 双向推送，异步消息队列优化</div>
+      </div>
+      <div class="p-3 bg-teal-50 rounded-lg border border-teal-100">
+        <h4 class="font-bold text-teal-700 text-sm mb-1">安全合规</h4>
+        <div class="text-xs text-gray-600">可追溯存证与差分隐私保护</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 应用场景拓展 -->
+  <div class="space-y-4">
+    <div class="text-center">
+      <div class="w-16 h-16 bg-gradient-to-br from-orange-500 to-red-500 rounded-full flex items-center justify-center mx-auto mb-3">
+        <span class="text-white text-2xl">🚀</span>
+      </div>
+      <h3 class="text-lg font-bold text-gray-800">应用场景拓展</h3>
+    </div>
+    <div class="space-y-3">
+      <div class="p-3 bg-orange-50 rounded-lg border border-orange-100">
+        <h4 class="font-bold text-orange-700 text-sm mb-1">多行业验证</h4>
+        <div class="text-xs text-gray-600">医疗设备研制、智能制造、金融风控</div>
+      </div>
+      <div class="p-3 bg-red-50 rounded-lg border border-red-100">
+        <h4 class="font-bold text-red-700 text-sm mb-1">生态扩展</h4>
+        <div class="text-xs text-gray-600">适配 Notion、飞书等更多协作工具</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="mt-8 p-4 bg-gradient-to-r from-indigo-50 to-blue-50 rounded-xl border border-indigo-200">
+  <div class="flex items-center space-x-3 mb-3">
+    <div class="w-8 h-8 bg-indigo-500 rounded-full flex items-center justify-center">
+      <span class="text-white text-sm">🎯</span>
+    </div>
+    <h4 class="font-bold text-indigo-700">长远目标</h4>
+  </div>
+  <div class="text-sm text-gray-600">
+    构建多 Agent 协作生态，实现项目全生命周期智能化管理，为企业数字化转型提供坚实的技术支撑与创新驱动力。
+  </div>
+</div>
 
 ---
 layout: center
 ---
 
-# 感谢聆听！
+<div class="flex flex-col items-center justify-center h-full space-y-8">
+  <!-- 感谢标题 -->
+  <div class="text-center space-y-4">
+    <h1 class="text-5xl font-black bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 bg-clip-text text-transparent animate-pulse">
+      感谢各位老师
+    </h1>
+    <div class="w-32 h-1 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full mx-auto"></div>
+  </div>
 
-👨‍🎓 如有问题，欢迎交流讨论。
+  <!-- 答辩人信息 -->
+  <div class="relative">
+    <div class="absolute inset-0 bg-gradient-to-r from-blue-400 to-purple-500 rounded-2xl blur opacity-75"></div>
+    <div class="relative bg-white dark:bg-gray-900 rounded-2xl p-8 shadow-2xl border border-gray-200 dark:border-gray-700">
+      <div class="text-center space-y-3">
+        <div class="text-2xl font-bold text-gray-800 dark:text-white">答辩人</div>
+        <div class="text-3xl font-black bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
+          冯少康
+        </div>
+        <div class="text-sm text-gray-600 dark:text-gray-400">通信工程 2103 | 悉尼智能科技学院</div>
+      </div>
+    </div>
+  </div>
+</div>
