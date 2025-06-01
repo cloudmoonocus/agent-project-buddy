@@ -13,9 +13,9 @@ import { globalStyles } from '@/styles/globalStyles'
 import { theme } from '@/styles/theme'
 import { ThemeProvider } from '@emotion/react'
 import { ConfigProvider } from 'antd'
-import { Inspector } from 'react-dev-inspector'
 import { createRoot } from 'react-dom/client'
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
+import { SpeedInsights } from "@vercel/speed-insights/react"
 import '@/styles/reset.css'
 import 'normalize.css'
 
@@ -25,7 +25,7 @@ const root = createRoot(
 
 root.render(
   <>
-    <Inspector keys={['command', 'shift', 'c']} />
+    <SpeedInsights />
     <ConfigProvider theme={antdThemeConfig}>
       <ThemeProvider theme={theme}>
         {globalStyles}
